@@ -1,8 +1,8 @@
-title: Mingsi博客
+title: MingsiAmz的博客
 subtitle: '记录与分享'
-description: '个人技术笔记与生活记录'
+description: '个人技术笔记'
 keywords: 博客,笔记
-author: mingsi
+author: mingsiamz
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
@@ -17,9 +17,11 @@ new_post_name: :title.md
 post_asset_folder: false
 syntax_highlighter: highlight.js
 highlight:
-  line_number: true
+  enable: false   
+  line_number: false#true
   auto_detect: false
-  wrap: true
+  wrap: false #true
+  tab_replace:
 
 index_generator:
   path: ''
@@ -33,7 +35,13 @@ feed:
 sitemap:
   path: sitemap.xml
 
-theme: butterfly
+# theme: butterfly
+theme: snark
 
 deploy:
   type: ''
+
+search:
+  path: search.xml
+  field: post
+  content: true
