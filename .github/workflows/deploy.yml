@@ -25,16 +25,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm' # 启用 npm 缓存，加速后续构建
 
       - name: 安装依赖
-        run: npm ci # 使用 ci 确保与 package-lock.json 完全一致，比 npm install 更可靠
+        run: |
+          npm install
+          npm install hexo-cli@~4.3.0 --save-dev
 
       - name: 编译生成静态网页
         run: |
           rm -rf db.json public .deploy_git
           npm run clean
-          npm run build
+          npm run build -- --debug
           if [ ! -d "public" ]; then
             echo "::error::public 目录未生成！Hexo 构建失败。"
             exit 1
@@ -48,7 +49,7 @@ jobs:
       - name: 上传编译产物
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public # 明确指定相对路径
+          path: ./public
 
   deploy:
     needs: build
