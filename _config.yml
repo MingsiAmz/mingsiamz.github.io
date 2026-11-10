@@ -1,0 +1,39 @@
+title: Mingsi博客
+subtitle: '记录与分享'
+description: '个人技术笔记与生活记录'
+keywords: 博客,笔记
+author: mingsi
+language: zh-CN
+timezone: 'Asia/Shanghai'
+
+url: https://github.com/MingsiAmz/mingsiamz.github.io
+permalink: :year/:month/:day/:title/
+pretty_urls:
+  trailing_index: false
+  trailing_html: false
+
+default_layout: post
+new_post_name: :title.md
+post_asset_folder: false
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  auto_detect: false
+  wrap: true
+
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+sitemap:
+  path: sitemap.xml
+
+theme: butterfly
+
+deploy:
+  type: ''
