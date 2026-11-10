@@ -19,35 +19,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
-        uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
-      - name: 安装 Node.js
-        uses: actions/setup-node@v7
+      - name: 安装 Node.js (LTS)
+        uses: actions/setup-node@v4
         with:
-          node-version: 22   # 使用 Node 22，对现代 JS 生态兼容性更好[reference:3]
+          node-version: 20
+          cache: 'npm' # 启用 npm 缓存，加速后续构建
 
-      - name: 安装依赖 (包含 hexo-cli)
-        run: |
-          npm install
-          npm install hexo-cli --save-dev
+      - name: 安装依赖
+        run: npm ci # 使用 ci 确保与 package-lock.json 完全一致，比 npm install 更可靠
 
       - name: 编译生成静态网页
         run: |
+          rm -rf db.json public .deploy_git
           npm run clean
           npm run build
-          echo "========== 检查 public 目录 =========="
-          ls -la public/ || echo "ERROR: public 目录未生成！"
+          if [ ! -d "public" ]; then
+            echo "::error::public 目录未生成！Hexo 构建失败。"
+            exit 1
+          fi
+          echo "构建成功，public 目录文件列表："
+          ls -la public/
 
       - name: 配置 Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@v5
 
       - name: 上传编译产物
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: public
-          include-hidden-files: true
+          path: ./public # 明确指定相对路径
 
   deploy:
     needs: build
@@ -58,4 +59,4 @@ jobs:
     steps:
       - name: 发布到 GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v4
