@@ -26,16 +26,16 @@ jobs:
         with:
           node-version: 20
 
-      - name: 安装依赖
+      - name: 清理并重装依赖
         run: |
+          rm -rf node_modules package-lock.json
           npm install
-          npm install hexo-cli@~4.3.0 --save-dev
+          npm install hexo-cli@4.3.0 --save-dev --save-exact
 
       - name: 编译生成静态网页
         run: |
-          rm -rf db.json public .deploy_git
-          npm run clean
-          npm run build -- --debug
+          npx hexo clean
+          npx hexo generate
           if [ ! -d "public" ]; then
             echo "::error::public 目录未生成！Hexo 构建失败。"
             exit 1

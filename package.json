@@ -2,11 +2,14 @@
   "name": "MingsiAmz-Blog",
   "version": "1.0.0",
   "private": true,
+  "hexo": {
+    "version": ""
+  },
   "scripts": {
-    "build": "hexo generate",
-    "clean": "hexo clean",
-    "server": "hexo server",
-    "new": "hexo new"
+    "build": "npx hexo generate",
+    "clean": "npx hexo clean",
+    "server": "npx hexo server",
+    "new": "npx hexo new"
   },
   "dependencies": {
     "hexo": "^7.3.0",
@@ -25,6 +28,6 @@
     "hexo-wordcount": "^6.0.1"
   },
   "devDependencies": {
-    "hexo-cli": "~4.3.0"
+    "hexo-cli": "4.3.0"
   }
 }
