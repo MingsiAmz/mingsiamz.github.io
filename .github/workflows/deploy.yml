@@ -26,7 +26,7 @@ jobs:
       - name: 安装 Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 20
 
       - name: 安装依赖
         run: npm install
@@ -34,8 +34,9 @@ jobs:
       - name: 编译生成静态网页
         run: |
           npx hexo clean
-          npx hexo generate
-          ls -la public/ || echo "public 目录未生成"
+          npx hexo generate --debug
+          echo "========== 检查 public 目录 =========="
+          ls -la public/ 2>&1 || echo "ERROR: public 目录确实不存在！"
 
       - name: 配置 Pages
         uses: actions/configure-pages@v6
