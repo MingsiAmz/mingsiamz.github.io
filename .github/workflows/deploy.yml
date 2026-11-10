@@ -26,17 +26,19 @@ jobs:
       - name: 安装 Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22   # 使用 Node 22，对现代 JS 生态兼容性更好[reference:3]
 
-      - name: 安装依赖
-        run: npm install
+      - name: 安装依赖 (包含 hexo-cli)
+        run: |
+          npm install
+          npm install hexo-cli --save-dev
 
       - name: 编译生成静态网页
         run: |
-          npx hexo clean
-          npx hexo generate --debug
+          npm run clean
+          npm run build
           echo "========== 检查 public 目录 =========="
-          ls -la public/ 2>&1 || echo "ERROR: public 目录确实不存在！"
+          ls -la public/ || echo "ERROR: public 目录未生成！"
 
       - name: 配置 Pages
         uses: actions/configure-pages@v6
