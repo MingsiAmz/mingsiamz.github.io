@@ -6,7 +6,7 @@ author: mingsi
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
-url: https://github.com/MingsiAmz/mingsiamz.github.io
+url: https://mingsiamz.github.io
 permalink: :year/:month/:day/:title/
 pretty_urls:
   trailing_index: false
